@@ -2,7 +2,7 @@ const Order = require('../../Models/order.model');
 
 const getOrders = async (req, res) => {
   try {
-    const orders = await Order.find();
+    const orders = await Order.find().populate('userId').populate('items.menuItemId');
     res.status(200).json({status:"success",orders});
   }
   catch (error) {
