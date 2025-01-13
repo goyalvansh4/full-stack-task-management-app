@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const Header = () => {
   return (
@@ -46,18 +47,21 @@ const Header = () => {
 
         {/* Authentication Buttons */}
         <div className="flex items-center space-x-4">
+          {!(Cookies.get("token")) ? 
           <NavLink
             to="/login"
             className="bg-yellow-300 text-green-700 px-4 py-2 rounded-lg font-semibold hover:bg-yellow-400 transition-colors duration-300"
           >
             Login
           </NavLink>
+          :
           <NavLink
             to="/logout"
             className="bg-red-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-red-600 transition-colors duration-300"
           >
             Logout
           </NavLink>
+          }
         </div>
       </div>
     </header>

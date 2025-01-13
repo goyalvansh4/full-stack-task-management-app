@@ -6,7 +6,7 @@ import GlobalAxios from "../../Global/GlobalAxios";
 export const fetchMenuItems = createAsyncThunk(
   "menu/fetchMenuItems",
   async () => {
-    const response = await GlobalAxios.get("/menu");
+    const response = await GlobalAxios.get("/menus");
     console.log("Inside fetchMenuItems",response.data);
     return (Array.isArray(response.data.menuItems) ? response.data.menuItems : []);
   }
@@ -14,17 +14,17 @@ export const fetchMenuItems = createAsyncThunk(
 
  export const setMenuItems = createAsyncThunk("menu/setMenuItems", async (items) => {
   console.log("Inside setMenuItems",items);
-  const response = await GlobalAxios.post("/menu", items);
+  const response = await GlobalAxios.post("/menus", items);
   return response.data;
 });
 
 export const editMenuItems = createAsyncThunk("menu/editMenuItems", async (id,items) => {
-  const response = await GlobalAxios.put(`/menu/${id}`, items);
+  const response = await GlobalAxios.put(`/menus/${id}`, items);
   return response.data;
 });
 
 export const deleteMenuItems = createAsyncThunk("menu/deleteMenuItems", async (id) => {
-  const response = await GlobalAxios.delete(`/menu/${id}`);
+  const response = await GlobalAxios.delete(`/menus/${id}`);
   return response.data;
 });
 

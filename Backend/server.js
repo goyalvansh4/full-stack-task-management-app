@@ -24,8 +24,8 @@ connect();
 const {auth,menu,order} = require('./Routes/index');
 // Routes
 app.use('/api/v1/',auth);
-app.use('/api/v1/menu',menu);
-app.use('/api/v1/order',order);
+app.use('/api/v1/menus',menu);
+app.use('/api/v1/orders',order);
 
 app.listen(PORT,()=>{
   console.log("Server is listening on port :",PORT);

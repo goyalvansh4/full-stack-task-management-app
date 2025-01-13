@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { removeFromCart, increaseQuantity, decreaseQuantity, clearCart } from '../../store/cart/cartSlice';  // Import actions
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import { createOrder } from '../../store/order/orderSlice';
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart.items);
@@ -20,13 +21,13 @@ const Cart = () => {
     setLoading(true);
     try {
       // Sending cart items to backend (you should replace the URL with your actual API endpoint)
-      const response = await axios.post('/api/orders', { items: cart });
-      
-      if (response.status === 200) {
-        Swal.fire("Success!", "Your order has been placed successfully!", "success");
-        // Clear the cart (You can use a Redux action to clear the cart)
-        dispatch(clearCart());
+      if(cart.length > 0) {
+      dispatch(createOrder(cart));
       }
+      Swal.fire("Success!", "Your order has been placed successfully!", "success");
+        // Clear the cart (You can use a Redux action to clear the cart)
+      dispatch(clearCart());
+      
     } catch (error) {
       Swal.fire("Error", "There was an issue placing your order. Please try again.", "error");
     } finally {
