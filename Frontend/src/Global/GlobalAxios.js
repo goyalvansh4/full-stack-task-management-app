@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 
 // Create an Axios instance
 const GlobalAxios = axios.create({
-  baseURL: 'http://localhost:5000/api/v1', // Replace with your backend URL
+  baseURL: 'https://full-stack-task-management-app-5ued.onrender.com/api/v1', // Replace with your backend URL
   headers: {
     'Content-Type': 'application/json',
   },
