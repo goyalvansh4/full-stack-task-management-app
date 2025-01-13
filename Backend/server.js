@@ -7,7 +7,7 @@ const app = express();
 
 
 const corsOptions = {
-  origin: 'https://tiny-truffle-09ab8e.netlify.app', // Frontend URL
+  origin: ['https://tiny-truffle-09ab8e.netlify.app','*'], // Frontend URL
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
