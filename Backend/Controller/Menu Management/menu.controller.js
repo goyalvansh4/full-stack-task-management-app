@@ -13,7 +13,6 @@ const getMenu = async (req, res) => {
 const createMenu = async (req, res) => {
   try {
     const { name, price , category , availability } = req.body;
-    console.log(req.body);
     const menuItem = await Menu.create({name, price , category , availability});
     res.status(201).json({status:"success",message:"Menu item created successfully", menuItem});
   }

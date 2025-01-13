@@ -27,7 +27,7 @@ const login = async (req, res) => {
     }
     if (bcrypt.compareSync(password, user.password)) {
       const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '1d' });
-      return res.status(200).json({ status: 'success', token });
+      return res.status(200).json({ status: 'success', data:{token , userId:user._id}});
     }
   } catch (error) {
     res.status(500).json({message:error.message});

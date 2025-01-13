@@ -7,13 +7,11 @@ export const fetchMenuItems = createAsyncThunk(
   "menu/fetchMenuItems",
   async () => {
     const response = await GlobalAxios.get("/menus");
-    console.log("Inside fetchMenuItems",response.data);
     return (Array.isArray(response.data.menuItems) ? response.data.menuItems : []);
   }
 );
 
  export const setMenuItems = createAsyncThunk("menu/setMenuItems", async (items) => {
-  console.log("Inside setMenuItems",items);
   const response = await GlobalAxios.post("/menus", items);
   return response.data;
 });

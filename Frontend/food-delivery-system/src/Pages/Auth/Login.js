@@ -17,8 +17,10 @@ const Login = () => {
     try {
       const response = await GlobalAxios.post('/login', { username, password });
       if (response.data.status === 'success') {
+        console.log('Login successful:', response.data);
         // Save the token in cookies
-        Cookies.set('token', response.data.token, { expires: 1 }); // Token valid for 7 days
+        Cookies.set('token', response.data.data.token, { expires: 1 }); // Token valid for 7 days
+        Cookies.set('userId', response.data.data.userId, { expires: 1 }); 
         alert('Login successful!');
         navigate('/'); // Redirect to the home page or dashboard
       }

@@ -3,11 +3,11 @@ import { FaTrash, FaPlus, FaMinus } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeFromCart, increaseQuantity, decreaseQuantity, clearCart } from '../../store/cart/cartSlice';  // Import actions
 import Swal from 'sweetalert2';
-import axios from 'axios';
 import { createOrder } from '../../store/order/orderSlice';
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart.items);
+  const cartItemIds = useSelector((state) => state.cart.itemIds);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
 
@@ -22,7 +22,8 @@ const Cart = () => {
     try {
       // Sending cart items to backend (you should replace the URL with your actual API endpoint)
       if(cart.length > 0) {
-      dispatch(createOrder(cart));
+        const totalAmount = calculateTotal();
+      dispatch(createOrder({cartItemIds,totalAmount,status:'pending'}));
       }
       Swal.fire("Success!", "Your order has been placed successfully!", "success");
         // Clear the cart (You can use a Redux action to clear the cart)

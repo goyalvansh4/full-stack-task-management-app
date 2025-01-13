@@ -12,8 +12,7 @@ const getOrders = async (req, res) => {
 
 const createOrder = async (req, res) => {
   try {
-    const { userId, items, totalAmount, status } = req.body;
-    const order = await Order.create({userId, items, totalAmount, status});
+    const order = await Order.create(req.body);
     res.status(201).json({status:"success",message:"Order created successfully", order});
   }
   catch (error) {

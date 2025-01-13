@@ -9,15 +9,12 @@ const userSchema = new Schema({
   password: {
     type:String, 
     required:true,
-    minlength: 8,
-    validate: {
-      validator: function (value) {
-        // Ensure the password has at least one uppercase letter, one lowercase letter, one digit, and one special character
-        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-        return passwordRegex.test(value);
+    validate:[
+      function(password){
+        return password.length >= 8;
       },
-      message: (props) => `Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.`,
-    },
+      'Password must be at least 6 characters long'
+    ]
   },
 },{timestamps:true});
 

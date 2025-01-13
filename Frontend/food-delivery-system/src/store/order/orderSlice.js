@@ -1,26 +1,27 @@
 // src/features/order/orderSlice.js
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import GlobalAxios from "../../Global/GlobalAxios";
+import Cookies from "js-cookie";
 
 
 export const getOrders = createAsyncThunk("order/getOrders", async () => {
   const response = await GlobalAxios.get("/orders");
+  console.log(response.data);
   return response.data;
 });
 
-export const createOrder = createAsyncThunk("order/createOrder", async (order) => {
-  const response = await GlobalAxios.post("/orders", order);
-  return response.data;
-});
-
-export const updateOrder = createAsyncThunk("order/updateOrder", async (id, order) => {
-  const response = await GlobalAxios.put(`/orders/${id}`, order);
-  return response.data;
-});
-
-export const deleteOrder = createAsyncThunk("order/deleteOrder", async (id) => {
-  const response = await GlobalAxios.delete(`/orders/${id}`);
-  return response.data;
+export const createOrder = createAsyncThunk("order/createOrder", async ({
+  cartItemIds,totalAmount,status
+}) => {
+  console.log(cartItemIds,totalAmount,status);
+  let order = {
+    userId: Cookies.get("userId"),
+    items:cartItemIds,
+    totalAmount:totalAmount,
+    status:status
+  }
+const response = await GlobalAxios.post("/orders", order);
+return response.data;
 });
 
 
@@ -32,11 +33,15 @@ const orderSlice = createSlice({
     error: null,
   },
   reducers: {
+    fetchOders: (state, action) => {
+      let data = getOrders();
+      state.orders.push(data);
+    },
     placeOrder: (state, action) => {
       state.orders.push(action.payload);
     }
   },
 });
 
-export const { placeOrder } = orderSlice.actions;
+export const { fetchOders,placeOrder } = orderSlice.actions;
 export default orderSlice.reducer;
